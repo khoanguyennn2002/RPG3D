@@ -5,20 +5,11 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PlayerData : ScriptableObject
 {
-    public List<Attribute> attributes;
+    public int MaxHealth;
+    public int MaxMana;
+    public int Strength;
+    public int Speed;
+    public LevelSystem LevelSystem = new LevelSystem();
 }
 
-[System.Serializable]
-public class Attribute
-{
-    public string Name;
-    public int Value;
-    public string Description;
 
-    //public Attribute(string name, int value, string description)
-    //{
-    //    Name = name;
-    //    Value = value;
-    //    Description = description;
-    //}
-}

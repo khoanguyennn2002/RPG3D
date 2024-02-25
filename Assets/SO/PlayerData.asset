@@ -12,3 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db73d87f83452f641a5a427d9fbba02d, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  MaxHealth: 0
+  MaxMana: 0
+  Strength: 0
+  Speed: 0
+  LevelSystem:
+    Level: 2
+    CurrentXp: 0
+    XPNeedForNextLevel: 200
