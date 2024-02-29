@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db73d87f83452f641a5a427d9fbba02d, type: 3}
-  m_Name: PlayerData
+  m_Name: Human
   m_EditorClassIdentifier: 
-  MaxHealth: 0
-  MaxMana: 0
-  Strength: 0
-  Speed: 0
-  LevelSystem:
-    Level: 2
-    CurrentXp: 0
-    XPNeedForNextLevel: 200
+  BaseHealth: 100
+  BaseMana: 100
+  Strength: 5
+  Agility: 5
+  Itelligence: 5
+  Endurance: 5

@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     static public GameManager Instance { get; private set; }
-    [SerializeField] private PlayerData playerData;
-    public LevelSystem LevelSystem { get; private set; }
+    [SerializeField] private CharacterData characterData;
+    [SerializeField] private LevelSystem LevelSystem;
     
     private void Awake()
     {
@@ -21,6 +20,11 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+       
+    }
+    public void SaveCharacter(CharacterCustomize characterCustomize)
+    {
         
     }
 }
+
