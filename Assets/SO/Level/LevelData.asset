@@ -22,25 +22,25 @@ MonoBehaviour:
   - Level: 3
     XPNeedForNextLevel: 300
     IncreaseAmount: 0
-  - Level: 0
+  - Level: 4
     XPNeedForNextLevel: 0
     IncreaseAmount: 0
-  - Level: 0
+  - Level: 5
     XPNeedForNextLevel: 0
     IncreaseAmount: 0
-  - Level: 0
+  - Level: 6
     XPNeedForNextLevel: 0
     IncreaseAmount: 0
-  - Level: 0
+  - Level: 7
     XPNeedForNextLevel: 0
     IncreaseAmount: 0
-  - Level: 0
+  - Level: 8
     XPNeedForNextLevel: 0
     IncreaseAmount: 0
-  - Level: 0
+  - Level: 9
     XPNeedForNextLevel: 0
     IncreaseAmount: 0
-  - Level: 0
+  - Level: 10
     XPNeedForNextLevel: 0
     IncreaseAmount: 0
   - Level: 0
