@@ -23,8 +23,8 @@ public class PlayerRun : PlayerGroundState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        player.Move(input, speed, isSprint);
-        if(isSprint)
+        player.Move(input, speed, pressSprint);
+        if(pressSprint)
         {
             playerStateMachine.ChangeState(player.SprintState);
         }

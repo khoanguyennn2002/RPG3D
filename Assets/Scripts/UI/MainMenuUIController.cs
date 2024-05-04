@@ -19,9 +19,14 @@ public class MainMenuUIController : MonoBehaviour
     [SerializeField] private GameObject NewGame;
     [SerializeField] private GameObject fadePanel;
     [SerializeField] private CharacterCustomize characterCustomize;
-    [SerializeField] private CharacterStats characterStats;
+    [SerializeField] private CharacterStatsManager characterStats;
     [SerializeField] private LevelLoader levelLoader;
     [SerializeField] private TextMeshProUGUI characterName;
+
+    [SerializeField] private TMP_Text hairStyle;
+    [SerializeField] private TMP_Text eyeStyle;
+    [SerializeField] private TMP_Text beardStyle;
+    [SerializeField] private TMP_Text faceStyle;
     #endregion
     private void OnEnable()
     {
@@ -41,10 +46,10 @@ public class MainMenuUIController : MonoBehaviour
     }
     private void BtnNewGame()
     {
-        Home.GetComponent<CanvasGroup>().DOFade(0, 1f)
+        Home.GetComponent<CanvasGroup>().DOFade(0, 0.75f)
             .OnComplete(() =>
             {
-                fadePanel.GetComponent<CanvasGroup>().DOFade(0, 1f).OnComplete(
+                fadePanel.GetComponent<CanvasGroup>().DOFade(0, 0.75f).OnComplete(
                     () => 
                     {
                         NewGame.GetComponent<CanvasGroup>().blocksRaycasts = true;
@@ -52,6 +57,7 @@ public class MainMenuUIController : MonoBehaviour
                 );
                 NewGame.SetActive(true);
                 characterSpot.SetActive(true);
+                characterCustomize.BuildLists();
                 characterCustomize.Initialize();
                 Home.GetComponent<CanvasGroup>().blocksRaycasts = false;
             });
@@ -62,9 +68,29 @@ public class MainMenuUIController : MonoBehaviour
     }
     private void CreateCharacter()
     {
-       GameManager.Instance.SaveCharacter(characterCustomize,characterStats, characterName.text);
+       GameManager.Instance.SaveCharacter();
        levelLoader.LoadLevel(1);
     }
+    public void BtnChangeHair(bool increase)
+    {
+        characterCustomize.ChangeHair(increase, hairStyle);
+    }
+
+    public void BtnChangeFace(bool increase)
+    {
+        characterCustomize.ChangeFace(increase, faceStyle);
+    }
+
+    public void BtnChangeBeard(bool increase)
+    {
+        characterCustomize.ChangeBeard(increase, beardStyle);
+    }
+
+    public void BtnChangeEye(bool increase)
+    {
+        characterCustomize.ChangeEye(increase, eyeStyle);
+    }
+
     private void ChangeFemale()
     {
         characterCustomize.ChangeGender(Gender.Female);
@@ -75,6 +101,6 @@ public class MainMenuUIController : MonoBehaviour
     }    
     public void ChosseClasses(CharacterStats stats)
     {
-        characterStats = stats;
+        characterStats.SetstatData(stats);
     }
 }

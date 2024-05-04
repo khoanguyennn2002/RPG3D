@@ -11,7 +11,6 @@ public class JumpState : AirState
     public override void EnterState()
     {
         base.EnterState();
-        Debug.Log("JumpState");
         player.Anim.SetBool("isMove",false);
         player.Jump(jumpForce, gravity);
     }

@@ -14,6 +14,7 @@ public class CameraSystem : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        _camera.Follow = followTarget;
     }
     private void Update()
     {

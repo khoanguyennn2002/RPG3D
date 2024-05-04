@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 public enum BodyPart
 {
@@ -21,8 +23,7 @@ public enum BodyPart
 public enum Gender {Male,Female}
 public class CharacterCustomize : MonoBehaviour
 {
-    public Dictionary<BodyPart, GameObject> BodyParts = new Dictionary<BodyPart, GameObject>()
-    {
+    public Dictionary<BodyPart, GameObject> BodyParts = new Dictionary<BodyPart, GameObject>(){
     { BodyPart.Hairs, null },
     { BodyPart.HeadAllElements, null },
     { BodyPart.Eyebrow, null },
@@ -40,21 +41,13 @@ public class CharacterCustomize : MonoBehaviour
     };
     [HideInInspector]
     public Gender Gender = Gender.Male;
-    [HideInInspector]
+    //[HideInInspector]
     public CharacterObjectGroups male;
-    [HideInInspector]
+    //[HideInInspector]
     public CharacterObjectGroups female;
     [HideInInspector]
     public CharacterObjectListsAllGender allGender;
 
-    [SerializeField] private TMP_Text hairStyle;
-    [SerializeField] private TMP_Text eyeStyle;
-    [SerializeField] private TMP_Text beardStyle;
-    [SerializeField] private TMP_Text faceStyle;
-    private void Awake()
-    {
-        BuildLists();
-    }
     public void Initialize()
     {
            ActiveItem(male.headAllElements[0], BodyPart.HeadAllElements);
@@ -70,7 +63,7 @@ public class CharacterCustomize : MonoBehaviour
            ActiveItem(male.legRight[0], BodyPart.Leg_Right);
            ActiveItem(male.legLeft[0], BodyPart.Leg_Left);
     }
-    private void BuildLists()
+    public void BuildLists()
     {
         //build out male lists
         BuildList(male.headAllElements, "Male_Head_All_Elements");
@@ -123,7 +116,8 @@ public class CharacterCustomize : MonoBehaviour
     }
     private void BuildList(List<GameObject> targetList, string characterPart)
     {
-        Transform[] rootTransform = gameObject.GetComponentsInChildren<Transform>();
+        GameObject gobject = GameObject.FindGameObjectWithTag("Player");
+        Transform[] rootTransform = gobject.GetComponentsInChildren<Transform>();
         Transform targetRoot = null;
         foreach (Transform t in rootTransform)
         {
@@ -166,10 +160,12 @@ public class CharacterCustomize : MonoBehaviour
     {
         if (BodyParts.ContainsKey(bodypart) && BodyParts[bodypart] != null)
         {
+
             BodyParts[bodypart].SetActive(false);
+            BodyParts[bodypart] = null;
         }
     }
-    public void ChangeHair(bool increase)
+    public void ChangeHair(bool increase, TMP_Text hairStyle)
     {
         int index = GetCurrentIndex(allGender.allHair);
         DeActiveItem(BodyPart.Hairs);
@@ -201,7 +197,7 @@ public class CharacterCustomize : MonoBehaviour
             }    
         }
     }
-    public void ChangeFace(bool increase)
+    public void ChangeFace(bool increase, TMP_Text faceStyle)
     {
         List<GameObject> targetList = (Gender == Gender.Male) ? male.headAllElements : female.headAllElements;
         int index = GetCurrentIndex(targetList);
@@ -217,7 +213,7 @@ public class CharacterCustomize : MonoBehaviour
         ActiveItem(targetList[index], BodyPart.HeadAllElements);
         faceStyle.text = "FaceStyle " + index.ToString();
     }
-    public void ChangeBeard(bool increase)
+    public void ChangeBeard(bool increase, TMP_Text beardStyle)
     {
         if(Gender == Gender.Female)
         {
@@ -253,7 +249,7 @@ public class CharacterCustomize : MonoBehaviour
             }
         }
     }    
-    public void ChangeEye(bool increase)
+    public void ChangeEye(bool increase, TMP_Text eyeStyle)
     {
         List<GameObject> targetList = (Gender == Gender.Male) ? male.eyebrow : female.eyebrow;
         int index = GetCurrentIndex(targetList);
@@ -273,7 +269,8 @@ public class CharacterCustomize : MonoBehaviour
     public void ChangeGender(Gender newGender)
     {
         Gender = newGender;
-        if(Gender == Gender.Female)
+       
+        if (Gender == Gender.Female)
         {
             DeActiveItem(BodyPart.Hairs);
             DeActiveItem(BodyPart.HeadAllElements);
@@ -332,7 +329,6 @@ public class CharacterCustomize : MonoBehaviour
             ActiveItem(male.hips[0], BodyPart.Hips);
             ActiveItem(male.legRight[0], BodyPart.Leg_Right);
             ActiveItem(male.legLeft[0], BodyPart.Leg_Left);
-        }    
+        }
     }
-
 }

@@ -6,7 +6,9 @@ public class InputHandle : MonoBehaviour
     public Vector3 MoveInput;
     public bool isShiftPressed;
     public bool isWalk;
-    public bool isJumpPressed;
+    public float jumpButtonPressedTime;
+    public bool lvUP;
+    [SerializeField] private LevelLoader levelLoader;
     private void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
@@ -27,11 +29,17 @@ public class InputHandle : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            isJumpPressed = true;
+            jumpButtonPressedTime = Time.time;
         }
-        else if (Input.GetKeyUp(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.RightControl))
         {
-            isJumpPressed = false;
+
+           GameManager.Instance.SaveCharacter();
+           levelLoader.LoadLevel(2);
+        }    
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+            lvUP = true;
         }
     }
 }

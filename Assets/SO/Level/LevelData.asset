@@ -14,36 +14,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - Level: 1
-    XPNeedForNextLevel: 100
-    IncreaseAmount: 0
-  - Level: 2
     XPNeedForNextLevel: 200
     IncreaseAmount: 0
-  - Level: 3
+  - Level: 2
     XPNeedForNextLevel: 300
-    IncreaseAmount: 0
+    IncreaseAmount: 5
+  - Level: 3
+    XPNeedForNextLevel: 400
+    IncreaseAmount: 5
   - Level: 4
-    XPNeedForNextLevel: 0
-    IncreaseAmount: 0
+    XPNeedForNextLevel: 500
+    IncreaseAmount: 5
   - Level: 5
-    XPNeedForNextLevel: 0
-    IncreaseAmount: 0
+    XPNeedForNextLevel: 600
+    IncreaseAmount: 5
   - Level: 6
-    XPNeedForNextLevel: 0
-    IncreaseAmount: 0
+    XPNeedForNextLevel: 700
+    IncreaseAmount: 5
   - Level: 7
-    XPNeedForNextLevel: 0
-    IncreaseAmount: 0
+    XPNeedForNextLevel: 800
+    IncreaseAmount: 5
   - Level: 8
-    XPNeedForNextLevel: 0
-    IncreaseAmount: 0
+    XPNeedForNextLevel: 900
+    IncreaseAmount: 5
   - Level: 9
-    XPNeedForNextLevel: 0
-    IncreaseAmount: 0
+    XPNeedForNextLevel: 1000
+    IncreaseAmount: 5
   - Level: 10
-    XPNeedForNextLevel: 0
-    IncreaseAmount: 0
-  - Level: 0
+    XPNeedForNextLevel: 1100
+    IncreaseAmount: 5
+  - Level: 10
     XPNeedForNextLevel: 0
     IncreaseAmount: 0
   - Level: 0

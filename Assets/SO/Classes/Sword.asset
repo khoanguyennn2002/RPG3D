@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db73d87f83452f641a5a427d9fbba02d, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  BaseHealth: 0
-  BaseMana: 0
-  Strength: 0
-  Agility: 0
-  Itelligence: 0
-  Endurance: 0
+  BaseHealth: 160
+  BaseMana: 160
+  type: 0
+  Strength: 12
+  Agility: 6
+  Intelligence: 6
+  Endurance: 6

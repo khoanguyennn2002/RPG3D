@@ -1,6 +1,7 @@
 using UnityEngine;
 public class Player : MonoBehaviour
 {
+    #region State
     private PlayerStateMachine StateMachine;
     public PlayerIdle IdleState { get; private set; }
     public PlayerWalk WalkState { get; private set; }
@@ -8,41 +9,56 @@ public class Player : MonoBehaviour
     public PlayerSprint SprintState { get; private set; }
     public JumpState JumpState { get; private set; }
     public FallState FallState { get; private set; }
+    #endregion
 
     public Animator Anim { get; private set; }
+    public float animSpeed { get; private set; }
     private CharacterController controller;
-    private CharacterStatsManager characterStatsManager;
-    private LevelSystem levelSystem;
+    private PlayerProfile playerProfile;
 
     private float _turnSmoothTime = 0.2f;
     private float _turnSmoothVelocity;
 
-    private float groundCheckRadius = 0.2f;
     public LayerMask groundLayerMask;
     private bool isGround;
     private float ySpeed;
     private float groundSpeed = 0f;
-    public float animSpeed { get; private set; }
+
 
     [SerializeField] private GameObject _mainCam;
-    public InputHandle input { get; private set; }
+   public InputHandle input { get; private set; }
     private void Awake()
     {
         GameManager.Instance.LoadCharacter();
     }
     void Start()
     {
-        characterStatsManager = GetComponent<CharacterStatsManager>();
-        levelSystem = GetComponent<LevelSystem>();
         Anim = GetComponent<Animator>();
         input = GetComponent<InputHandle>();
         controller = GetComponent<CharacterController>();
+        playerProfile = GameManager.Instance.playerProfile;
+        playerProfile.Init();
+        playerProfile.Test();
         Initialized();
     }
     void Update()
     {
         StateMachine.CurrentState.UpdateLogic();
-        Debug.Log(controller.velocity.magnitude);
+        if(input.lvUP)
+        {
+            if (input.lvUP)
+            {
+                
+                playerProfile.GainXP(100);
+                if(playerProfile.GetCurrentXP() >= playerProfile.GetCurrentLevel().XPNeedForNextLevel)
+                {
+                    playerProfile.IncreaseLevel();
+                }
+                
+             
+                input.lvUP = false;
+            }
+        }
     }
     private void FixedUpdate()
     {
@@ -59,15 +75,7 @@ public class Player : MonoBehaviour
         FallState = new FallState(this, StateMachine);
         StateMachine.Initialize(IdleState);
     }
-    private void IncreaseLevel()
-    {
-        levelSystem.IncreaseLevel();
-        LevelInfo currentLevel = levelSystem.GetCurrentLevel();
-        if (currentLevel != null)
-        {
-            characterStatsManager.UpdateStats(currentLevel.Level, currentLevel.IncreaseAmount);
-        }
-    }
+    
     public void Move(Vector3 input,float speed,bool sprint)
     {
         Vector3 dir = new Vector3(input.x, 0, input.z).normalized;
@@ -94,12 +102,13 @@ public class Player : MonoBehaviour
     public void MoveInAir(Vector3 input)
     {
         Vector3 dir = new Vector3(input.x, 0, input.z).normalized;
-        if (!isGround)
+        if (!isGround && dir.magnitude >0.01f)
         {
             float targetAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg + _mainCam.transform.eulerAngles.y;
             float smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
-            controller.Move(dir  * groundSpeed * Time.deltaTime * 0.5f);
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            controller.Move(moveDir.normalized * groundSpeed * Time.deltaTime * 0.5f);
         }    
     }    
    public void OnAnimatorMove()

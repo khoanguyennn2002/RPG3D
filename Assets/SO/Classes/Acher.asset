@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db73d87f83452f641a5a427d9fbba02d, type: 3}
   m_Name: Acher
   m_EditorClassIdentifier: 
-  BaseHealth: 0
-  BaseMana: 0
-  Strength: 0
-  Agility: 0
-  Itelligence: 0
-  Endurance: 0
+  BaseHealth: 140
+  BaseMana: 180
+  type: 1
+  Strength: 4
+  Agility: 14
+  Intelligence: 8
+  Endurance: 4

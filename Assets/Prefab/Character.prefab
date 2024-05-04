@@ -20085,9 +20085,6 @@ GameObject:
   - component: {fileID: 739807536897536008}
   - component: {fileID: 844203276386958269}
   - component: {fileID: 2482218173163752789}
-  - component: {fileID: 5652891179450768344}
-  - component: {fileID: 1923205345437605768}
-  - component: {fileID: -3050097328679797078}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -20109,6 +20106,7 @@ Transform:
   m_Children:
   - {fileID: 1431977732963992899}
   - {fileID: 1432133493057071665}
+  - {fileID: 6568768924336685602}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20148,6 +20146,9 @@ MonoBehaviour:
   MoveInput: {x: 0, y: 0, z: 0}
   isShiftPressed: 0
   isWalk: 1
+  jumpButtonPressedTime: 0
+  lvUP: 0
+  levelLoader: {fileID: 0}
 --- !u!114 &739807536897536008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20160,10 +20161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70504c414c68cf94c9d3bf68364e8a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundLayer:
+  groundLayerMask:
     serializedVersion: 2
-    m_Bits: 128
-  isGround: 0
+    m_Bits: 0
   _mainCam: {fileID: 0}
 --- !u!143 &844203276386958269
 CharacterController:
@@ -20197,96 +20197,6 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &5652891179450768344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425900241047150089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b57aced6c05f12347b0918fe7581f93d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Gender: 0
-  male:
-    headAllElements: []
-    headNoElements: []
-    eyebrow: []
-    facialHair: []
-    torso: []
-    armUpperRight: []
-    armUpperLeft: []
-    armLowerRight: []
-    armLowerLeft: []
-    handRight: []
-    handLeft: []
-    hips: []
-    legRight: []
-    legLeft: []
-  female:
-    headAllElements: []
-    headNoElements: []
-    eyebrow: []
-    facialHair: []
-    torso: []
-    armUpperRight: []
-    armUpperLeft: []
-    armLowerRight: []
-    armLowerLeft: []
-    handRight: []
-    handLeft: []
-    hips: []
-    legRight: []
-    legLeft: []
-  allGender:
-    headCoveringsBaseHair: []
-    headCoveringsNoFacialHair: []
-    headCoveringsNoHair: []
-    allHair: []
-    allHeadAttachment: []
-    chestAttachment: []
-    backAttachment: []
-    shoulderAttachmentRight: []
-    shoulderAttachmentLeft: []
-    elbowAttachmentRight: []
-    elbowAttachmentLeft: []
-    hipsAttachment: []
-    kneeAttachementRight: []
-    kneeAttachementLeft: []
-    all1Extra: []
-    elfEar: []
-  hairStyle: {fileID: 0}
-  eyeStyle: {fileID: 0}
-  beardStyle: {fileID: 0}
-  faceStyle: {fileID: 0}
---- !u!114 &1923205345437605768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425900241047150089}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc5801a2b98024048a1935c9da5b602b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterStats: {fileID: 0}
---- !u!114 &-3050097328679797078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425900241047150089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6705ff26fffea5c4d8cbb6caf9f81394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LevelData: {fileID: 0}
 --- !u!1 &1425900959678473083
 GameObject:
   m_ObjectHideFlags: 0
@@ -69359,3 +69269,34 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.360761, y: -0.02005355, z: 0}
     m_Extent: {x: 0.13257009, y: 0.16788979, z: 0.1630664}
   m_DirtyAABB: 0
+--- !u!1 &8255466912113001060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6568768924336685602}
+  m_Layer: 0
+  m_Name: FlollowTaget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6568768924336685602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8255466912113001060}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1432099915326773529}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

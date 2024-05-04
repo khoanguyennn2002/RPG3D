@@ -6,19 +6,6 @@ public class LevelSystem :MonoBehaviour
     public LevelData LevelData;
     private int currentXp = 0;
     private int currentLevelIndex = 0;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
     public LevelInfo GetCurrentLevel()
     {
         return LevelData.levels[currentLevelIndex];
@@ -27,7 +14,7 @@ public class LevelSystem :MonoBehaviour
     {
         var l = LevelData.levels.Find(x => x.Level == level.Level);
         int index = LevelData.levels.IndexOf(l);
-        if(index != -1)
+        if (index != -1)
         {
             currentLevelIndex = index;
             currentXp = Xp;
@@ -44,7 +31,12 @@ public class LevelSystem :MonoBehaviour
     public void IncreaseLevel()
     {
         LevelInfo currentLevel = GetCurrentLevel();
-        if (currentLevel != null && currentXp >= currentLevel.XPNeedForNextLevel)
+        if(currentLevel == null)
+        {
+            Debug.Log("khong lay duoc level");
+            return;
+        }
+        if (currentXp >= currentLevel.XPNeedForNextLevel)
         {
             if (currentLevelIndex < LevelData.levels.Count - 1)
             {

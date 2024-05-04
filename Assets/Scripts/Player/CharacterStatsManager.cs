@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class CharacterStatsManager : MonoBehaviour
@@ -12,11 +11,6 @@ public class CharacterStatsManager : MonoBehaviour
     public int Intelligence { get; private set; }
     public int Endurance { get; private set; }
 
-    //private void Start()
-    //{
-    //    Initialize();
-    //}
-
     public void Initialize()
     {
         Health = characterStats.BaseHealth;
@@ -27,22 +21,24 @@ public class CharacterStatsManager : MonoBehaviour
         Endurance = characterStats.Endurance;
     }
 
-    public void LoadStats(CharacterStats newStats)
+    public void SetstatData(CharacterStats newStats)
     {
         characterStats = newStats;
-        Initialize();
-    }    
-
+    }
     public void UpdateStats(int level, int amount)
     {
-
         int statIncreaseAmount = level * amount;
 
-        Health += statIncreaseAmount;
-        Mana += statIncreaseAmount;
         Strength += statIncreaseAmount;
         Agility += statIncreaseAmount;
         Intelligence += statIncreaseAmount;
-        Endurance += statIncreaseAmount;
+        Endurance += 10;
+        Health = 100 + (Endurance * 10);
+        Mana = 100 + (Intelligence * 10);
     }
+    public CharacterStats GetStatData()
+    {
+        return characterStats;
+    }
+
 }

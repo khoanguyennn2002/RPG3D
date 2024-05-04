@@ -23,7 +23,7 @@ public class PlayerWalk : PlayerGroundState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        player.Move(input,speed,isSprint);
+        player.Move(input,speed, pressSprint);
     }
 
     public override void UpdatePhysics()

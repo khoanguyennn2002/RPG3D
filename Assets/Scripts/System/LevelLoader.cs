@@ -7,8 +7,6 @@ public class LevelLoader : MonoBehaviour
 {
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private Image loadingBar;
-    
-
     public void LoadLevel(int sceneIndex)
     {
         StartCoroutine(LoadAsynLevel(sceneIndex));
@@ -28,10 +26,10 @@ public class LevelLoader : MonoBehaviour
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         while (!operation.isDone)
         {
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
-            loadingBar.fillAmount = progress;
             yield return null;
         }
+     
+        loadingScreen.SetActive(false);
     }
 
 }
