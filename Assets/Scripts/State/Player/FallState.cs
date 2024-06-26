@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class FallState : AirState
 {
@@ -10,24 +7,27 @@ public class FallState : AirState
     public override void EnterState()
     {
         base.EnterState();
-        player.Anim.SetBool("isFall",true);
+        player.Anim.SetTrigger("StateOn");
+        player.Anim.SetInteger("State", (int)State.Fall);
     }
     public override void ExitState()
     {
         base.ExitState();
-        player.Anim.SetBool("isFall", false);
     }
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        player.MoveInAir(input);
-        if (player.GroundCheck() && !player.Anim.GetBool("isMove"))
+        player.MoveInAir(movementInput);
+        if(player.GroundCheck())
         {
-            playerStateMachine.ChangeState(player.IdleState);
-        }
-        else if(player.GroundCheck() && player.Anim.GetBool("isMove"))
-        {
-            playerStateMachine.ChangeState(player.RunState);
+            if(movementInput.magnitude >= 0.01f)
+            {
+                playerStateMachine.ChangeState(player.RunState);
+            }
+            else
+            {
+                playerStateMachine.ChangeState(player.IdleState);
+            }
         }
     }
     public override void UpdatePhysics()

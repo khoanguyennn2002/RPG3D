@@ -22,20 +22,5 @@ public class CharacterStats : ScriptableObject
     {
         BaseHealth = 100 + (Endurance * 10);
         BaseMana = 100 + (Intelligence * 10);
-        //switch(type)
-        //{
-        //    case HeroClass.Sword:
-        //        BaseHealth = 100 + (Endurance * 10);
-        //        BaseMana = 50 + (Intelligence * 10);
-        //        break;
-        //    case HeroClass.Archer:
-        //        BaseHealth = 100 + (Endurance * 10);
-        //        BaseMana = 80 + (Intelligence * 10);
-        //        break;
-        //    case HeroClass.Mage:
-        //        BaseHealth = 100 + (Endurance * 10);
-        //        BaseMana = 100 + (Intelligence * 10);
-        //        break;
-        //}    
     }
 }

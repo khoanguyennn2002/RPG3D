@@ -44,23 +44,23 @@ public class PlayerProfile : MonoBehaviour
         {
             return;
         }
-        characterStat.UpdateStats(currentLevel.Level, currentLevel.IncreaseAmount);
+        characterStat.UpdateStats(currentLevel.IncreaseAmount);
         UpdateUI();
-       Test();
+       //Test();
     }
     public void UpdateUI()
     {
         uiController.UpdateHealthUI(characterStat.Health, characterStat.Health);
         uiController.UpdateManaUI(characterStat.Mana, characterStat.Mana);
-        uiController.UpdateExperienceUI(GetCurrentXP(), GetCurrentLevel().XPNeedForNextLevel,GetCurrentLevel().Level);
+        uiController.UpdateExperienceUI(GetCurrentXP(), GetCurrentLevel().XPNeedForNextLevel, GetCurrentLevel().Level);
     }
     public void SetUIController(UIController controller)
     {
         uiController = controller;
     }
-    public void Test()
-    {
-        Debug.Log(characterStat.Health);
-        Debug.Log(GetCurrentLevel().Level);
-    }    
+    //public void Test()
+    //{
+    //    Debug.Log(characterStat.Health);
+    //    Debug.Log(GetCurrentLevel().Level);
+    //}    
 }

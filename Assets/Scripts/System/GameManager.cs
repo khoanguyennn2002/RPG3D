@@ -2,12 +2,43 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+
+[Serializable]
+public class CharacterData
+{
+    public string Name;
+    public Gender Gender;
+    public List<string> BodyParts = new List<string>();
+    public CharacterStats BaseStats;
+    public LevelInfo Level;
+    public int CurrentXP;
+   // public InventoryData Inventory;
+   // public InventoryData Equipment;
+}
+[Serializable]
+public class InventoryData
+{
+    public InventorySlot[] Slots;
+
+    public InventoryData(Inventory inventory)
+    {
+        Slots = new InventorySlot[inventory.GetSlots.Length];
+        Array.Copy(inventory.GetSlots, Slots, inventory.GetSlots.Length);
+    }
+
+    public void ApplyToInventory(Inventory inventory)
+    {
+        Array.Copy(Slots, inventory.GetSlots, Slots.Length);
+    }
+}
+
 public class GameManager : MonoBehaviour
 {
-    static public GameManager Instance { get; private set; }
-     public PlayerProfile playerProfile { get; private set; }
-     public CharacterCustomize customize { get; private set; }
-    private CharacterData characterData;
+    public static GameManager Instance { get; private set; }
+    public PlayerProfile playerProfile { get; private set; }
+    public CharacterCustomize customize { get; private set; }
+    public CharacterStatsManager statsManager { get; private set; }
+    [SerializeField] private CharacterData characterData = new CharacterData();
 
     private void Awake()
     {
@@ -21,34 +52,32 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
+
     private void Start()
     {
         playerProfile = GetComponent<PlayerProfile>();
         customize = GetComponent<CharacterCustomize>();
-        characterData = new CharacterData();
+        statsManager = GetComponent<CharacterStatsManager>();
     }
     public void SaveCharacter()
     {
-        PopulateCharacterData();
-        string json = JsonUtility.ToJson(characterData);
-        string filePath = Application.dataPath + "/Resources/characterData.json";
-        File.WriteAllText(filePath, json);
-        SaveStats();
-    }
-
-    private void PopulateCharacterData()
-    {
-        CharacterStatsManager stat = gameObject.GetComponent<CharacterStatsManager>();
+        var player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         characterData.Gender = customize.Gender;
+        characterData.BodyParts.Clear();
         foreach (var kvp in customize.BodyParts)
         {
             characterData.BodyParts.Add(kvp.Value?.name);
         }
-        characterData.Stats = stat.GetStatData();
-        characterData.level = playerProfile.GetCurrentLevel();
-        characterData.currentXP = playerProfile.GetCurrentXP();
-    }    
-
+        characterData.BaseStats = statsManager.GetStatData();
+        characterData.Level = playerProfile.GetCurrentLevel();
+        characterData.CurrentXP = playerProfile.GetCurrentXP();
+        if (player != null)
+        {
+            characterData.Inventory = new InventoryData(player.inventory);
+            characterData.Equipment = new InventoryData(player.equipment);
+        }
+        SaveToFile(characterData);
+    }
     public void LoadCharacter()
     {
         string filePath = Application.dataPath + "/Resources/characterData.json";
@@ -56,62 +85,48 @@ public class GameManager : MonoBehaviour
         {
             string json = File.ReadAllText(filePath);
             characterData = JsonUtility.FromJson<CharacterData>(json);
-            SetCharacterFromData();
+            LoadCharacterFromData();
         }
     }
-    private void SetCharacterFromData()
+    private void LoadCharacterFromData()
     {
-        GameObject characterObject = GameObject.FindGameObjectWithTag("Player");
-
-        CharacterStatsManager statsManager = GetComponent<CharacterStatsManager>();
-        customize.BuildLists();
+        var characterObject = GameObject.FindGameObjectWithTag("Player");
         customize.Gender = characterData.Gender;
-
-        Dictionary<string, Transform> bodyPartsMap = GenerateBodyPartsMap(characterObject);
+        var bodyPartsMap = GenerateBodyPartsMap(characterObject);
         for (int i = 0; i < characterData.BodyParts.Count; i++)
         {
             string bodyPartName = characterData.BodyParts[i];
-            if (bodyPartName == "")
-            {
-                continue;
-            }
-            if (bodyPartsMap.TryGetValue(bodyPartName, out Transform bodyPart))
+            if (string.IsNullOrEmpty(bodyPartName)) continue;
+            if (bodyPartsMap.TryGetValue(bodyPartName, out var bodyPart))
             {
                 bodyPart.gameObject.SetActive(true);
                 customize.BodyParts[(BodyPart)i] = bodyPart.gameObject;
             }
         }
-        statsManager.SetstatData(characterData.Stats);
-        statsManager.Initialize();
+        var playerInventory = characterObject.GetComponent<Player>().inventory;
+        var playerEquipment = characterObject.GetComponent<Player>().equipment;
 
-        playerProfile.LoadLevel(characterData.level, characterData.currentXP);
-    }    
+        characterData.Inventory.ApplyToInventory(playerInventory);
+        characterData.Equipment.ApplyToInventory(playerEquipment);
+        statsManager.LoadstatData(characterData.BaseStats);
+        statsManager.LoadStatsFromData(characterData.Level.IncreaseAmount, characterData.Level.Level);
+        playerProfile.LoadLevel(characterData.Level, characterData.CurrentXP);
+    }
+
     private Dictionary<string, Transform> GenerateBodyPartsMap(GameObject characterInstantiate)
     {
-        Dictionary<string, Transform> bodyPartsMap = new Dictionary<string, Transform>();
-
-        foreach (Transform part in characterInstantiate.GetComponentsInChildren<Transform>(true))
+        var bodyPartsMap = new Dictionary<string, Transform>();
+        foreach (var part in characterInstantiate.GetComponentsInChildren<Transform>(true))
         {
-            bodyPartsMap.Add(part.gameObject.name, part);
+            bodyPartsMap[part.gameObject.name] = part;
         }
         return bodyPartsMap;
     }
-    private void SaveStats()
+
+    private void SaveToFile(CharacterData data)
     {
-        CharacterStatsManager statsManager = GetComponent<CharacterStatsManager>();
-
-        CharacterStats statsData = new CharacterStats();    
-
-        statsData.BaseHealth = statsManager.Health;
-        statsData.BaseMana = statsManager.Mana;
-        statsData.Strength = statsManager.Strength;
-        statsData.Agility = statsManager.Agility;
-        statsData.Intelligence = statsManager.Intelligence;
-        statsData.Endurance = statsManager.Endurance;
-
-        string json = JsonUtility.ToJson(statsData);    
-        string filePath = Application.dataPath + "/Resources/statsData.json";
-
+        string json = JsonUtility.ToJson(data, true);
+        string filePath = Application.dataPath + "/Resources/characterData.json";
         File.WriteAllText(filePath, json);
     }
 }

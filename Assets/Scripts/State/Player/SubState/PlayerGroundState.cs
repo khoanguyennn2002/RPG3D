@@ -1,20 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class PlayerGroundState : PlayerState
 {
-    private bool isJumping = false;
-    protected Vector3 input { get; private set; }
-    protected bool pressSprint { get; private set; }
-    protected float jumpButtonPressedTime { get; private set; }
-    protected float lastGroundedTime { get; private set; }
-    private float jumpCooldown = 0.2f;
+    protected float gravity = -9.81f;
+    protected Vector3 movementInput { get; private set; }
+    protected bool isSprintPressed { get; private set; }
+    private float jumpPressTime;
+    protected bool isWalking { get; private set; }
+    protected bool isCombatInput { get; private set; }
+    private float lastGroundedTime;
+    private const float jumpCooldownDuration = 0.15f;
 
-    public PlayerGroundState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine)
-    {
+    protected const float runSpeed = 2f;
+    protected const float walkSpeed = 1f;
+    protected const float sprintSpeed = 3f;
+    private const float stopSpeedThreshold = 0.001f;
+    private const float speedDampingTime = 0.1f;
 
-    }
+    public PlayerGroundState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine) { }
 
     public override void EnterState()
     {
@@ -29,31 +33,74 @@ public class PlayerGroundState : PlayerState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        input = player.input.MoveInput;
-        pressSprint = player.input.isShiftPressed;
-        jumpButtonPressedTime = player.input.jumpButtonPressedTime;
-        player.GroundCheck();
-        if(player.GroundCheck())
+        HandleInput();
+        player.HandleGravity(gravity);
+        
+
+        if (player.GroundCheck())
         {
             lastGroundedTime = Time.time;
         }
 
-        if (/*input.sqrMagnitude <= 0.01f*/ input.magnitude < 0.5f)
+        if (player.HaveWeapon() && playerStateMachine.CurrentState != player.CombatState && player.inputHandler.IsSwordDrawn)
         {
-            player.Anim.SetFloat("Vertical", 0, 0.2f, Time.deltaTime);
+            playerStateMachine.ChangeState(player.CombatState);
         }
-        if (Time.time - lastGroundedTime <= jumpCooldown)
+
+        if (isCombatInput)
         {
-            if (Time.time - jumpButtonPressedTime <= jumpCooldown)
+            if(playerStateMachine.CurrentState != player.AttackState)
             {
-                jumpButtonPressedTime = Time.time;
+                playerStateMachine.ChangeState(player.AttackState);
+            }
+        }
+
+        if (Time.time - lastGroundedTime <= jumpCooldownDuration)
+        {
+            if (Time.time - jumpPressTime <= jumpCooldownDuration)
+            {
+                jumpPressTime = Time.time;
                 playerStateMachine.ChangeState(player.JumpState);
             }
         }
     }
-
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
+    }
+
+    private void HandleInput()
+    {
+        movementInput = player.inputHandler.MovementInput;
+        isWalking = player.inputHandler.IsWalking;
+        isSprintPressed = player.inputHandler.IsSprintPressed;
+        jumpPressTime = player.inputHandler.JumpPressTime;
+        isCombatInput = player.inputHandler.IsCombatInput;
+
+        float targetSpeed;
+
+        if (isSprintPressed)
+        {
+            targetSpeed = movementInput.magnitude * sprintSpeed;
+        }
+        else if (isWalking)
+        {
+            targetSpeed = movementInput.magnitude * walkSpeed;
+        }
+        else if(playerStateMachine.CurrentState == player.AttackState)
+        {
+            targetSpeed = 0;
+        }
+        else
+        {
+            targetSpeed = movementInput.magnitude * runSpeed;
+        }
+
+        player.Anim.SetFloat("Vertical", targetSpeed, speedDampingTime, Time.deltaTime);
+
+        if (player.Anim.GetFloat("Vertical") < stopSpeedThreshold)
+        {
+            player.Anim.SetFloat("Vertical", 0.0f);
+        }
     }
 }

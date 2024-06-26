@@ -10,9 +10,26 @@ public class UIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI hpText;
     [SerializeField] private TextMeshProUGUI mpText;
     [SerializeField] private TextMeshProUGUI expText;
+
+    [SerializeField] private GameObject Inventory;
+
+    [SerializeField] private TextMeshProUGUI weaponText;
+    private void OnEnable()
+    {
+        InputHandler.onShowInventory += ShowInventory;
+    }
+    private void OnDestroy()
+    {
+        InputHandler.onShowInventory -= ShowInventory;
+    }
     private void Awake()
     {
         GameManager.Instance.playerProfile.SetUIController(this);
+        
+    }
+    private void Start()
+    {
+        Inventory.SetActive(false);
     }
     public void UpdateHealthUI(int currentHealth, int maxHealth)
     {
@@ -46,5 +63,24 @@ public class UIController : MonoBehaviour
     public void SetManaUI(int mp)
     {
         mpBar.value = mp;
-    }    
+    }
+    public TextMeshProUGUI ShowText(string text)
+    {
+        weaponText.text = text;
+        return weaponText;
+    }
+
+    public void ShowInventory()
+    {
+        bool isActive = Inventory.activeSelf;
+        Inventory.SetActive(!isActive);
+        if(!isActive)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
 }

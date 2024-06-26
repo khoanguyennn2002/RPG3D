@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.Windows;
 
 public class AirState : PlayerState
 {
     protected float gravity = -9.81f;
-    protected Vector3 input { get; private set; }
+    protected Vector3 movementInput { get; private set; }
     protected bool isSprint { get; private set; }
 
     public AirState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine)
@@ -26,15 +24,15 @@ public class AirState : PlayerState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        input = player.input.MoveInput;
-        isSprint = player.input.isShiftPressed;
+        movementInput = player.inputHandler.MovementInput;
+        isSprint = player.inputHandler.IsSprintPressed;
         player.GroundCheck();
         player.HandleGravity(gravity);
-       
     }
 
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
+  
     }
 }

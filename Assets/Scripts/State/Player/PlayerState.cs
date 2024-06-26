@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class PlayerState 
+public class PlayerState
 {
     protected Player player;
     protected PlayerStateMachine playerStateMachine;
@@ -10,13 +10,11 @@ public class PlayerState
         this.player = player;
         this.playerStateMachine = playerStateMachine;
     }
-    public virtual void EnterState()
-    {
+    public virtual void EnterState() { }
 
-    }
-    public virtual void ExitState()
-    {
-    }
+    public virtual void ExitState() { }
+
+
     public virtual void UpdateLogic() { }
     public virtual void UpdatePhysics() { }
 }

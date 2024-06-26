@@ -10,10 +10,14 @@ public class CameraSystem : MonoBehaviour
     float yRotation;
     float mouseX;
     float mouseY;
+    private void Awake()
+    {
+        _camera = FindAnyObjectByType<CinemachineVirtualCamera>();
+    }
     private void Start()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
         _camera.Follow = followTarget;
     }
     private void Update()

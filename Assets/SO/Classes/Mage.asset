@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db73d87f83452f641a5a427d9fbba02d, type: 3}
   m_Name: Mage
   m_EditorClassIdentifier: 
-  BaseHealth: 160
+  BaseHealth: 140
   BaseMana: 280
   type: 2
-  Strength: 3
-  Agility: 3
+  Strength: 4
+  Agility: 4
   Intelligence: 18
-  Endurance: 6
+  Endurance: 4

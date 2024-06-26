@@ -1,1 +1,29 @@
-{"Name":"","Gender":0,"BodyParts":["","Chr_Head_Male_00","Chr_Eyebrow_Male_01","","Chr_Torso_Male_00","Chr_ArmUpperRight_Male_00","Chr_ArmUpperLeft_Male_00","Chr_ArmLowerRight_Male_00","Chr_ArmLowerLeft_Male_00","Chr_HandRight_Male_00","Chr_HandLeft_Male_00","Chr_Hips_Male_00","Chr_LegLeft_Male_00","Chr_LegRight_Male_00"],"Stats":{"instanceID":24152},"level":{"Level":1,"XPNeedForNextLevel":200,"IncreaseAmount":0},"currentXP":0}
+{
+    "Name": "",
+    "Gender": 0,
+    "BodyParts": [
+        "",
+        "Chr_Head_Male_00",
+        "Chr_Eyebrow_Male_01",
+        "",
+        "Chr_Torso_Male_00",
+        "Chr_ArmUpperRight_Male_00",
+        "Chr_ArmUpperLeft_Male_00",
+        "Chr_ArmLowerRight_Male_00",
+        "Chr_ArmLowerLeft_Male_00",
+        "Chr_HandRight_Male_00",
+        "Chr_HandLeft_Male_00",
+        "Chr_Hips_Male_00",
+        "Chr_LegLeft_Male_00",
+        "Chr_LegRight_Male_00"
+    ],
+    "BaseStats": {
+        "instanceID": 31810
+    },
+    "Level": {
+        "Level": 1,
+        "XPNeedForNextLevel": 200,
+        "IncreaseAmount": 0
+    },
+    "CurrentXP": 0
+}

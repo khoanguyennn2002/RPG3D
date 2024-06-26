@@ -1,67 +1,65 @@
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
-using UnityEditor;
 using UnityEngine;
-public enum BodyPart
-{
-    Hairs = 0,
-    HeadAllElements = 1,
-    Eyebrow = 2,
-    FacialHair = 3,
-    Torso = 4,
-    Arm_Upper_Right = 5,
-    Arm_Upper_Left = 6,
-    Arm_Lower_Right = 7,
-    Arm_Lower_Left = 8,
-    Hand_Right = 9,
-    Hand_Left = 10,
-    Hips = 11,
-    Leg_Right = 12,
-    Leg_Left = 13,
-}
+
 public enum Gender {Male,Female}
 public class CharacterCustomize : MonoBehaviour
 {
     public Dictionary<BodyPart, GameObject> BodyParts = new Dictionary<BodyPart, GameObject>(){
-    { BodyPart.Hairs, null },
-    { BodyPart.HeadAllElements, null },
-    { BodyPart.Eyebrow, null },
-    { BodyPart.FacialHair, null },
-    { BodyPart.Torso, null },
-    { BodyPart.Arm_Upper_Right, null },
-    { BodyPart.Arm_Upper_Left, null },
-    { BodyPart.Arm_Lower_Right, null },
-    { BodyPart.Arm_Lower_Left, null },
-    { BodyPart.Hand_Right, null },
-    { BodyPart.Hand_Left, null },
-    { BodyPart.Hips, null },
-    { BodyPart.Leg_Right, null },
-    { BodyPart.Leg_Left, null }
-    };
-    [HideInInspector]
+         { BodyPart.Hairs, null },
+         { BodyPart.HeadAllElements, null },
+         { BodyPart.Eyebrow, null },
+         { BodyPart.FacialHair, null },
+         { BodyPart.Torso, null },
+         { BodyPart.Arm_Upper_Right, null },
+         { BodyPart.Arm_Upper_Left, null },
+         { BodyPart.Arm_Lower_Right, null },
+         { BodyPart.Arm_Lower_Left, null },
+         { BodyPart.Hand_Right, null },
+         { BodyPart.Hand_Left, null },
+         { BodyPart.Hips, null },
+         { BodyPart.Leg_Right, null },
+         { BodyPart.Leg_Left, null }
+         };
+   [HideInInspector]
     public Gender Gender = Gender.Male;
-    //[HideInInspector]
+    [HideInInspector]
     public CharacterObjectGroups male;
-    //[HideInInspector]
+    [HideInInspector]
     public CharacterObjectGroups female;
     [HideInInspector]
     public CharacterObjectListsAllGender allGender;
 
     public void Initialize()
     {
-           ActiveItem(male.headAllElements[0], BodyPart.HeadAllElements);
-           ActiveItem(male.eyebrow[0], BodyPart.Eyebrow);
-           ActiveItem(male.torso[0], BodyPart.Torso);
-           ActiveItem(male.armUpperRight[0], BodyPart.Arm_Upper_Right);
-           ActiveItem(male.armUpperLeft[0], BodyPart.Arm_Upper_Left);
-           ActiveItem(male.armLowerRight[0], BodyPart.Arm_Lower_Right);
-           ActiveItem(male.armLowerLeft[0], BodyPart.Arm_Lower_Left);
-           ActiveItem(male.handRight[0], BodyPart.Hand_Right);
-           ActiveItem(male.handLeft[0], BodyPart.Hand_Left);
-           ActiveItem(male.hips[0], BodyPart.Hips);
-           ActiveItem(male.legRight[0], BodyPart.Leg_Right);
-           ActiveItem(male.legLeft[0], BodyPart.Leg_Left);
+        ActiveItem(male.headAllElements[0], BodyPart.HeadAllElements);
+        ActiveItem(male.eyebrow[0], BodyPart.Eyebrow);
+        ActiveItem(male.torso[0], BodyPart.Torso);
+        ActiveItem(male.armUpperRight[0], BodyPart.Arm_Upper_Right);
+        ActiveItem(male.armUpperLeft[0], BodyPart.Arm_Upper_Left);
+        ActiveItem(male.armLowerRight[0], BodyPart.Arm_Lower_Right);
+        ActiveItem(male.armLowerLeft[0], BodyPart.Arm_Lower_Left);
+        ActiveItem(male.handRight[0], BodyPart.Hand_Right);
+        ActiveItem(male.handLeft[0], BodyPart.Hand_Left);
+        ActiveItem(male.hips[0], BodyPart.Hips);
+        ActiveItem(male.legRight[0], BodyPart.Leg_Right);
+        ActiveItem(male.legLeft[0], BodyPart.Leg_Left);
+    }
+
+    private void DeActiveItem(BodyPart bodypart)
+    {
+        if (BodyParts.ContainsKey(bodypart) && BodyParts[bodypart] != null)
+        {
+            BodyParts[bodypart].SetActive(false);
+            BodyParts[bodypart] = null;
+        }
+    }
+    public void ActiveItem(GameObject go, BodyPart bodypart)
+    {
+        go.SetActive(true);
+        if (BodyParts.ContainsKey(bodypart))
+        {
+            BodyParts[bodypart] = go;
+        }
     }
     public void BuildLists()
     {
@@ -135,200 +133,273 @@ public class CharacterCustomize : MonoBehaviour
             targetList.Add(go);
         }
     }
-    public int GetCurrentIndex(List<GameObject> target)
+    public void ChangeHair(GameObject target)
     {
-        int index = -1;
-        foreach (GameObject go in target)
-        {
-            if (go.activeSelf)
-            {
-                index = target.IndexOf(go);
-                break;
-            }
-        }
-        return index;
-    }
-    private void ActiveItem(GameObject go, BodyPart bodypart)
-    {
-        go.SetActive(true);
-        if(BodyParts.ContainsKey(bodypart))
-        {
-            BodyParts[bodypart] = go;
-        }
-    }
-    private void DeActiveItem(BodyPart bodypart)
-    {
-        if (BodyParts.ContainsKey(bodypart) && BodyParts[bodypart] != null)
-        {
-
-            BodyParts[bodypart].SetActive(false);
-            BodyParts[bodypart] = null;
-        }
-    }
-    public void ChangeHair(bool increase, TMP_Text hairStyle)
-    {
-        int index = GetCurrentIndex(allGender.allHair);
         DeActiveItem(BodyPart.Hairs);
-        if (increase)
-        {
-            if (index != allGender.allHair.Count - 1)
-            {
-                index = (index + 1) % allGender.allHair.Count;
-                ActiveItem(allGender.allHair[index], BodyPart.Hairs);
-                hairStyle.text = "HairStyle " + (index + 1).ToString();
-            }
-            else
-            {
-                index = 0;
-                hairStyle.text = "HairStyle " + index.ToString();
-            }    
-        }
-        else
-        {
-           if (index != 0)
-            {
-                index = (index - 1 + allGender.allHair.Count + 1) % (allGender.allHair.Count + 1);
-                ActiveItem(allGender.allHair[index], BodyPart.Hairs);
-                hairStyle.text = "HairStyle " + (index + 1) .ToString();
-            }
-            else
-            {
-                hairStyle.text = "HairStyle " + index.ToString();
-            }    
-        }
+        ActiveItem(target, BodyPart.Hairs);
+       // PrintBodyParts();
     }
-    public void ChangeFace(bool increase, TMP_Text faceStyle)
+
+    public void ChangeBeard(GameObject target)
     {
-        List<GameObject> targetList = (Gender == Gender.Male) ? male.headAllElements : female.headAllElements;
-        int index = GetCurrentIndex(targetList);
-        DeActiveItem(BodyPart.HeadAllElements);
-        if (increase)
-        {
-            index = (index + 1) % targetList.Count;
-        }
-        else
-        {
-            index = (index - 1 + targetList.Count) % targetList.Count;
-        }
-        ActiveItem(targetList[index], BodyPart.HeadAllElements);
-        faceStyle.text = "FaceStyle " + index.ToString();
-    }
-    public void ChangeBeard(bool increase, TMP_Text beardStyle)
-    {
-        if(Gender == Gender.Female)
-        {
-            return;
-        }    
-        int index = GetCurrentIndex(male.facialHair);
         DeActiveItem(BodyPart.FacialHair);
-        if (increase)
-        {
-            if (index != male.facialHair.Count - 1)
-            {
-                index = (index + 1) % male.facialHair.Count;
-                ActiveItem(male.facialHair[index], BodyPart.FacialHair);
-                beardStyle.text = "BeardStyle " + (index + 1).ToString();
-            }
-            else
-            {
-                index = 0;
-                beardStyle.text = "BeardStyle " + index.ToString();
-            }
-        }
-        else
-        {
-            if (index != 0)
-            {
-                index = (index - 1 + male.facialHair.Count + 1) % (male.facialHair.Count + 1);
-                ActiveItem(male.facialHair[index], BodyPart.FacialHair);
-                beardStyle.text = "BeardStyle " + (index + 1).ToString();
-            }
-            else
-            {
-                beardStyle.text = "BeardStyle " + index.ToString();
-            }
-        }
+        ActiveItem(target, BodyPart.FacialHair);
+        //PrintBodyParts();
+    }
+    public void DisableHair()
+    {
+        DeActiveItem(BodyPart.Hairs);
+       // 
     }    
-    public void ChangeEye(bool increase, TMP_Text eyeStyle)
+
+    public void PrintBodyParts()
     {
-        List<GameObject> targetList = (Gender == Gender.Male) ? male.eyebrow : female.eyebrow;
-        int index = GetCurrentIndex(targetList);
+        foreach (var entry in BodyParts)
+        {
+            string partName = entry.Key.ToString();
+            string objectName = entry.Value != null ? entry.Value.name : "None";
+            Debug.Log($"BodyPart: {partName}, GameObject: {objectName}");
+        }
+    }
+    public void ChangeGenderMale()
+    {
+        if (Gender == Gender.Male)
+            return;
+        Gender = Gender.Male;
+        DeActiveItem(BodyPart.Hairs);
+        DeActiveItem(BodyPart.HeadAllElements);
         DeActiveItem(BodyPart.Eyebrow);
+        DeActiveItem(BodyPart.FacialHair);
+        DeActiveItem(BodyPart.Torso);
+        DeActiveItem(BodyPart.Arm_Upper_Right);
+        DeActiveItem(BodyPart.Arm_Upper_Left);
+        DeActiveItem(BodyPart.Arm_Lower_Right);
+        DeActiveItem(BodyPart.Arm_Lower_Left);
+        DeActiveItem(BodyPart.Hand_Right);
+        DeActiveItem(BodyPart.Hand_Left);
+        DeActiveItem(BodyPart.Hips);
+        DeActiveItem(BodyPart.Leg_Right);
+        DeActiveItem(BodyPart.Leg_Left);
 
-        if (increase)
-        {
-            index = (index + 1) % targetList.Count;
-        }
-        else
-        {
-            index = (index - 1 + targetList.Count) % targetList.Count;
-        }
-        ActiveItem(targetList[index], BodyPart.Eyebrow);
-        eyeStyle.text = "EyeStyle " + index.ToString();
+        ActiveItem(male.headAllElements[0], BodyPart.HeadAllElements);
+        ActiveItem(male.eyebrow[0], BodyPart.Eyebrow);
+        ActiveItem(male.torso[0], BodyPart.Torso);
+        ActiveItem(male.armUpperRight[0], BodyPart.Arm_Upper_Right);
+        ActiveItem(male.armUpperLeft[0], BodyPart.Arm_Upper_Left);
+        ActiveItem(male.armLowerRight[0], BodyPart.Arm_Lower_Right);
+        ActiveItem(male.armLowerLeft[0], BodyPart.Arm_Lower_Left);
+        ActiveItem(male.handRight[0], BodyPart.Hand_Right);
+        ActiveItem(male.handLeft[0], BodyPart.Hand_Left);
+        ActiveItem(male.hips[0], BodyPart.Hips);
+        ActiveItem(male.legRight[0], BodyPart.Leg_Right);
+        ActiveItem(male.legLeft[0], BodyPart.Leg_Left);
+
+        PrintBodyParts();
     }
-    public void ChangeGender(Gender newGender)
+    public void ChangeGenderFemale()
     {
-        Gender = newGender;
-       
         if (Gender == Gender.Female)
-        {
-            DeActiveItem(BodyPart.Hairs);
-            DeActiveItem(BodyPart.HeadAllElements);
-            DeActiveItem(BodyPart.Eyebrow);
-            DeActiveItem(BodyPart.FacialHair);
-            DeActiveItem(BodyPart.Torso);
-            DeActiveItem(BodyPart.Arm_Upper_Right);
-            DeActiveItem(BodyPart.Arm_Upper_Left);
-            DeActiveItem(BodyPart.Arm_Lower_Right);
-            DeActiveItem(BodyPart.Arm_Lower_Left);
-            DeActiveItem(BodyPart.Hand_Right);
-            DeActiveItem(BodyPart.Hand_Left);
-            DeActiveItem(BodyPart.Hips);
-            DeActiveItem(BodyPart.Leg_Right);
-            DeActiveItem(BodyPart.Leg_Left);
+            return;
+        Gender = Gender.Female;
+        DeActiveItem(BodyPart.Hairs);
+        DeActiveItem(BodyPart.HeadAllElements);
+        DeActiveItem(BodyPart.Eyebrow);
+        DeActiveItem(BodyPart.FacialHair);
+        DeActiveItem(BodyPart.Torso);
+        DeActiveItem(BodyPart.Arm_Upper_Right);
+        DeActiveItem(BodyPart.Arm_Upper_Left);
+        DeActiveItem(BodyPart.Arm_Lower_Right);
+        DeActiveItem(BodyPart.Arm_Lower_Left);
+        DeActiveItem(BodyPart.Hand_Right);
+        DeActiveItem(BodyPart.Hand_Left);
+        DeActiveItem(BodyPart.Hips);
+        DeActiveItem(BodyPart.Leg_Right);
+        DeActiveItem(BodyPart.Leg_Left);
 
-            ActiveItem(female.headAllElements[0], BodyPart.HeadAllElements);
-            ActiveItem(female.eyebrow[0], BodyPart.Eyebrow);
-            ActiveItem(female.torso[0], BodyPart.Torso);
-            ActiveItem(female.armUpperRight[0], BodyPart.Arm_Upper_Right);
-            ActiveItem(female.armUpperLeft[0], BodyPart.Arm_Upper_Left);
-            ActiveItem(female.armLowerRight[0], BodyPart.Arm_Lower_Right);
-            ActiveItem(female.armLowerLeft[0], BodyPart.Arm_Lower_Left);
-            ActiveItem(female.handRight[0], BodyPart.Hand_Right);
-            ActiveItem(female.handLeft[0], BodyPart.Hand_Left);
-            ActiveItem(female.hips[0], BodyPart.Hips);
-            ActiveItem(female.legRight[0], BodyPart.Leg_Right);
-            ActiveItem(female.legLeft[0], BodyPart.Leg_Left);
-        }    
-        else
-        {
-            DeActiveItem(BodyPart.Hairs);
-            DeActiveItem(BodyPart.HeadAllElements);
-            DeActiveItem(BodyPart.Eyebrow);
-            DeActiveItem(BodyPart.FacialHair);
-            DeActiveItem(BodyPart.Torso);
-            DeActiveItem(BodyPart.Arm_Upper_Right);
-            DeActiveItem(BodyPart.Arm_Upper_Left);
-            DeActiveItem(BodyPart.Arm_Lower_Right);
-            DeActiveItem(BodyPart.Arm_Lower_Left);
-            DeActiveItem(BodyPart.Hand_Right);
-            DeActiveItem(BodyPart.Hand_Left);
-            DeActiveItem(BodyPart.Hips);
-            DeActiveItem(BodyPart.Leg_Right);
-            DeActiveItem(BodyPart.Leg_Left);
+        ActiveItem(female.headAllElements[0], BodyPart.HeadAllElements);
+        ActiveItem(female.eyebrow[0], BodyPart.Eyebrow);
+        ActiveItem(female.torso[0], BodyPart.Torso);
+        ActiveItem(female.armUpperRight[0], BodyPart.Arm_Upper_Right);
+        ActiveItem(female.armUpperLeft[0], BodyPart.Arm_Upper_Left);
+        ActiveItem(female.armLowerRight[0], BodyPart.Arm_Lower_Right);
+        ActiveItem(female.armLowerLeft[0], BodyPart.Arm_Lower_Left);
+        ActiveItem(female.handRight[0], BodyPart.Hand_Right);
+        ActiveItem(female.handLeft[0], BodyPart.Hand_Left);
+        ActiveItem(female.hips[0], BodyPart.Hips);
+        ActiveItem(female.legRight[0], BodyPart.Leg_Right);
+        ActiveItem(female.legLeft[0], BodyPart.Leg_Left);
 
-            ActiveItem(male.headAllElements[0], BodyPart.HeadAllElements);
-            ActiveItem(male.eyebrow[0], BodyPart.Eyebrow);
-            ActiveItem(male.torso[0], BodyPart.Torso);
-            ActiveItem(male.armUpperRight[0], BodyPart.Arm_Upper_Right);
-            ActiveItem(male.armUpperLeft[0], BodyPart.Arm_Upper_Left);
-            ActiveItem(male.armLowerRight[0], BodyPart.Arm_Lower_Right);
-            ActiveItem(male.armLowerLeft[0], BodyPart.Arm_Lower_Left);
-            ActiveItem(male.handRight[0], BodyPart.Hand_Right);
-            ActiveItem(male.handLeft[0], BodyPart.Hand_Left);
-            ActiveItem(male.hips[0], BodyPart.Hips);
-            ActiveItem(male.legRight[0], BodyPart.Leg_Right);
-            ActiveItem(male.legLeft[0], BodyPart.Leg_Left);
-        }
-    }
+        PrintBodyParts();
+    }    
 }
+
+//    #region old
+//    public void ChangeHair(bool increase, TMP_Text hairStyle)
+//    {
+//        int index = GetCurrentIndex(allGender.allHair);
+//        DeActiveItem(BodyPart.Hairs);
+//        if (increase)
+//        {
+//            if (index != allGender.allHair.Count - 1)
+//            {
+//                index = (index + 1) % allGender.allHair.Count;
+//                ActiveItem(allGender.allHair[index], BodyPart.Hairs);
+//                hairStyle.text = "HairStyle " + (index + 1).ToString();
+//            }
+//            else
+//            {
+//                index = 0;
+//                hairStyle.text = "HairStyle " + index.ToString();
+//            }    
+//        }
+//        else
+//        {
+//           if (index != 0)
+//            {
+//                index = (index - 1 + allGender.allHair.Count + 1) % (allGender.allHair.Count + 1);
+//                ActiveItem(allGender.allHair[index], BodyPart.Hairs);
+//                hairStyle.text = "HairStyle " + (index + 1) .ToString();
+//            }
+//            else
+//            {
+//                hairStyle.text = "HairStyle " + index.ToString();
+//            }    
+//        }
+//    }
+//    public void ChangeFace(bool increase, TMP_Text faceStyle)
+//    {
+//        List<GameObject> targetList = (Gender == Gender.Male) ? male.headAllElements : female.headAllElements;
+//        int index = GetCurrentIndex(targetList);
+//        DeActiveItem(BodyPart.HeadAllElements);
+//        if (increase)
+//        {
+//            index = (index + 1) % targetList.Count;
+//        }
+//        else
+//        {
+//            index = (index - 1 + targetList.Count) % targetList.Count;
+//        }
+//        ActiveItem(targetList[index], BodyPart.HeadAllElements);
+//        faceStyle.text = "FaceStyle " + index.ToString();
+//    }
+//    public void ChangeBeard(bool increase, TMP_Text beardStyle)
+//    {
+//        if(Gender == Gender.Female)
+//        {
+//            return;
+//        }    
+//        int index = GetCurrentIndex(male.facialHair);
+//        DeActiveItem(BodyPart.FacialHair);
+//        if (increase)
+//        {
+//            if (index != male.facialHair.Count - 1)
+//            {
+//                index = (index + 1) % male.facialHair.Count;
+//                ActiveItem(male.facialHair[index], BodyPart.FacialHair);
+//                beardStyle.text = "BeardStyle " + (index + 1).ToString();
+//            }
+//            else
+//            {
+//                index = 0;
+//                beardStyle.text = "BeardStyle " + index.ToString();
+//            }
+//        }
+//        else
+//        {
+//            if (index != 0)
+//            {
+//                index = (index - 1 + male.facialHair.Count + 1) % (male.facialHair.Count + 1);
+//                ActiveItem(male.facialHair[index], BodyPart.FacialHair);
+//                beardStyle.text = "BeardStyle " + (index + 1).ToString();
+//            }
+//            else
+//            {
+//                beardStyle.text = "BeardStyle " + index.ToString();
+//            }
+//        }
+//    }    
+//    public void ChangeEye(bool increase, TMP_Text eyeStyle)
+//    {
+//        List<GameObject> targetList = (Gender == Gender.Male) ? male.eyebrow : female.eyebrow;
+//        int index = GetCurrentIndex(targetList);
+//        DeActiveItem(BodyPart.Eyebrow);
+
+//        if (increase)
+//        {
+//            index = (index + 1) % targetList.Count;
+//        }
+//        else
+//        {
+//            index = (index - 1 + targetList.Count) % targetList.Count;
+//        }
+//        ActiveItem(targetList[index], BodyPart.Eyebrow);
+//        eyeStyle.text = "EyeStyle " + index.ToString();
+//    }
+//    #endregion
+//    public void ChangeGender(Gender newGender)
+//    {
+//        Gender = newGender;
+
+//        if (Gender == Gender.Female)
+//        {
+//            DeActiveItem(BodyPart.Hairs);
+//            DeActiveItem(BodyPart.HeadAllElements);
+//            DeActiveItem(BodyPart.Eyebrow);
+//            DeActiveItem(BodyPart.FacialHair);
+//            DeActiveItem(BodyPart.Torso);
+//            DeActiveItem(BodyPart.Arm_Upper_Right);
+//            DeActiveItem(BodyPart.Arm_Upper_Left);
+//            DeActiveItem(BodyPart.Arm_Lower_Right);
+//            DeActiveItem(BodyPart.Arm_Lower_Left);
+//            DeActiveItem(BodyPart.Hand_Right);
+//            DeActiveItem(BodyPart.Hand_Left);
+//            DeActiveItem(BodyPart.Hips);
+//            DeActiveItem(BodyPart.Leg_Right);
+//            DeActiveItem(BodyPart.Leg_Left);
+
+//            ActiveItem(female.headAllElements[0], BodyPart.HeadAllElements);
+//            ActiveItem(female.eyebrow[0], BodyPart.Eyebrow);
+//            ActiveItem(female.torso[0], BodyPart.Torso);
+//            ActiveItem(female.armUpperRight[0], BodyPart.Arm_Upper_Right);
+//            ActiveItem(female.armUpperLeft[0], BodyPart.Arm_Upper_Left);
+//            ActiveItem(female.armLowerRight[0], BodyPart.Arm_Lower_Right);
+//            ActiveItem(female.armLowerLeft[0], BodyPart.Arm_Lower_Left);
+//            ActiveItem(female.handRight[0], BodyPart.Hand_Right);
+//            ActiveItem(female.handLeft[0], BodyPart.Hand_Left);
+//            ActiveItem(female.hips[0], BodyPart.Hips);
+//            ActiveItem(female.legRight[0], BodyPart.Leg_Right);
+//            ActiveItem(female.legLeft[0], BodyPart.Leg_Left);
+//        }    
+//        else
+//        {
+//            DeActiveItem(BodyPart.Hairs);
+//            DeActiveItem(BodyPart.HeadAllElements);
+//            DeActiveItem(BodyPart.Eyebrow);
+//            DeActiveItem(BodyPart.FacialHair);
+//            DeActiveItem(BodyPart.Torso);
+//            DeActiveItem(BodyPart.Arm_Upper_Right);
+//            DeActiveItem(BodyPart.Arm_Upper_Left);
+//            DeActiveItem(BodyPart.Arm_Lower_Right);
+//            DeActiveItem(BodyPart.Arm_Lower_Left);
+//            DeActiveItem(BodyPart.Hand_Right);
+//            DeActiveItem(BodyPart.Hand_Left);
+//            DeActiveItem(BodyPart.Hips);
+//            DeActiveItem(BodyPart.Leg_Right);
+//            DeActiveItem(BodyPart.Leg_Left);
+
+//            ActiveItem(male.headAllElements[0], BodyPart.HeadAllElements);
+//            ActiveItem(male.eyebrow[0], BodyPart.Eyebrow);
+//            ActiveItem(male.torso[0], BodyPart.Torso);
+//            ActiveItem(male.armUpperRight[0], BodyPart.Arm_Upper_Right);
+//            ActiveItem(male.armUpperLeft[0], BodyPart.Arm_Upper_Left);
+//            ActiveItem(male.armLowerRight[0], BodyPart.Arm_Lower_Right);
+//            ActiveItem(male.armLowerLeft[0], BodyPart.Arm_Lower_Left);
+//            ActiveItem(male.handRight[0], BodyPart.Hand_Right);
+//            ActiveItem(male.handLeft[0], BodyPart.Hand_Left);
+//            ActiveItem(male.hips[0], BodyPart.Hips);
+//            ActiveItem(male.legRight[0], BodyPart.Leg_Right);
+//            ActiveItem(male.legLeft[0], BodyPart.Leg_Left);
+//        }
+//    }
+
+

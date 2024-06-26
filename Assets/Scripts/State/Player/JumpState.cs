@@ -11,7 +11,8 @@ public class JumpState : AirState
     public override void EnterState()
     {
         base.EnterState();
-        player.Anim.SetBool("isMove",false);
+        player.Anim.SetTrigger("StateOn");
+        player.Anim.SetInteger("State", (int)State.Jump);
         player.Jump(jumpForce, gravity);
     }
     public override void ExitState()
@@ -21,7 +22,7 @@ public class JumpState : AirState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        player.MoveInAir(input);
+        player.MoveInAir(movementInput);
         if (!player.GroundCheck() && player.GetVelocityY() <= 0)
         {
           playerStateMachine.ChangeState(player.FallState);
