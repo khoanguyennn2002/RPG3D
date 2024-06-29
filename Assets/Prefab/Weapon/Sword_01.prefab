@@ -142,4 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d00790ddb02136843a41732b70116b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 1e798a43dd487d74d9207701aca5049f, type: 2}
+  itemData: {fileID: 11400000, guid: 1e798a43dd487d74d9207701aca5049f, type: 2}
+  item:
+    Name: 
+    Id: -1
+    buffs: []

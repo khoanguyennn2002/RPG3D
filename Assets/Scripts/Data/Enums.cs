@@ -37,11 +37,10 @@ public enum WeaponModeSlot
 
 public enum State
 {
-    Idle, // 0
-    Move, // 1
-    Jump, // 2
-    Fall, // 3
-    Landing //4
+    Move, // 0
+    Jump, // 1
+    Fall, // 2
+    Landing //3
 }
 public enum Stance
 {
@@ -58,11 +57,9 @@ public enum Mode
     DrawWeapon = 1,
     StoreWeapon = 2,
 
-    PunchRight = 101,
-    PunchLeft = 102,
-    Kick = 103,
+    Punch = 101,
 
-    MeleeRight = 1001
+    Melee = 1001
 }
 
 public enum ItemType

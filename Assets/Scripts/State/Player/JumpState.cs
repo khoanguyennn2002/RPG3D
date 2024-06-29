@@ -11,8 +11,9 @@ public class JumpState : AirState
     public override void EnterState()
     {
         base.EnterState();
-        player.Anim.SetTrigger("StateOn");
         player.Anim.SetInteger("State", (int)State.Jump);
+        player.Anim.SetTrigger("StateOn");
+
         player.Jump(jumpForce, gravity);
     }
     public override void ExitState()

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,11 +8,11 @@ public class StaticInterface : UserInterface
     public override void CreateSlots()
     {
         slotOnInterface = new Dictionary<GameObject, InventorySlot>();
-
+    
         for (int i = 0; i < inventory.GetSlots.Length; i++)
         {
             var obj = slots[i];
-
+            
             AddEvent(obj, EventTriggerType.PointerEnter, delegate { OnEnter(obj); });
             AddEvent(obj, EventTriggerType.PointerExit, delegate { OnExit(obj); });
             AddEvent(obj, EventTriggerType.BeginDrag, delegate { OnBeginDrag(obj); });
@@ -21,7 +20,6 @@ public class StaticInterface : UserInterface
             AddEvent(obj, EventTriggerType.EndDrag, delegate { OnEndDrag(obj); });
             inventory.GetSlots[i].slotDisplay = obj;
             slotOnInterface.Add(obj, inventory.GetSlots[i]);
-
         }
     }
 }

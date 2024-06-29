@@ -1,13 +1,16 @@
 using UnityEngine;
 public class SprintState : PlayerGroundState
 {
+    WeaponHoldSlot weaponHoldSlot;
     public SprintState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine)
     {
     }
     public override void EnterState()
     {
         base.EnterState();
+        weaponHoldSlot = player.GetComponentInChildren<WeaponHoldSlot>();
         player.Anim.SetInteger("State", (int)State.Move);
+
     }
     public override void ExitState()
     {
@@ -21,7 +24,7 @@ public class SprintState : PlayerGroundState
         {
             playerStateMachine.ChangeState(player.RunState);
         }
-        if (player.HaveWeapon() && player.inputHandler.IsSwordDrawn)
+        if (weaponHoldSlot.HaveWeapon()&& player.inputHandler.IsSwordDrawn)
         {
             playerStateMachine.ChangeState(player.CombatState);
         }

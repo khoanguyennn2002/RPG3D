@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class PlayerState
+public abstract class PlayerState
 {
     protected Player player;
     protected PlayerStateMachine playerStateMachine;

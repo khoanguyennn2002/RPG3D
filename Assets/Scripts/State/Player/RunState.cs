@@ -2,14 +2,16 @@ using UnityEngine;
 public class RunState : PlayerGroundState
 {
     private float animSpeed = 0.7f;
+    WeaponHoldSlot weapon;
     public RunState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine)
     {
     }
     public override void EnterState()
     {
         base.EnterState();
+        weapon = player.GetComponentInChildren<WeaponHoldSlot>();
         player.SetVelocity(animSpeed);
-        if (player.Anim.GetInteger("State") != 1)
+        if (player.Anim.GetInteger("State") != 0)
         {
             player.Anim.SetTrigger("StateOn");
             player.Anim.SetInteger("State", (int)State.Move);
@@ -33,7 +35,7 @@ public class RunState : PlayerGroundState
         {
             playerStateMachine.ChangeState(player.IdleState);
         }
-        if (player.HaveWeapon() && player.inputHandler.IsSwordDrawn)
+        if (weapon.HaveWeapon() && player.inputHandler.IsSwordDrawn)
         {
             playerStateMachine.ChangeState(player.CombatState);
         }

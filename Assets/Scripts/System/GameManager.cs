@@ -12,25 +12,11 @@ public class CharacterData
     public CharacterStats BaseStats;
     public LevelInfo Level;
     public int CurrentXP;
-   // public InventoryData Inventory;
-   // public InventoryData Equipment;
+    public InventorySlot[] Inventory = new InventorySlot[30];
+    public InventorySlot[] Equipment = new InventorySlot[8];
 }
 [Serializable]
-public class InventoryData
-{
-    public InventorySlot[] Slots;
 
-    public InventoryData(Inventory inventory)
-    {
-        Slots = new InventorySlot[inventory.GetSlots.Length];
-        Array.Copy(inventory.GetSlots, Slots, inventory.GetSlots.Length);
-    }
-
-    public void ApplyToInventory(Inventory inventory)
-    {
-        Array.Copy(Slots, inventory.GetSlots, Slots.Length);
-    }
-}
 
 public class GameManager : MonoBehaviour
 {
@@ -38,7 +24,7 @@ public class GameManager : MonoBehaviour
     public PlayerProfile playerProfile { get; private set; }
     public CharacterCustomize customize { get; private set; }
     public CharacterStatsManager statsManager { get; private set; }
-    [SerializeField] private CharacterData characterData = new CharacterData();
+    [SerializeField] private CharacterData characterData;
 
     private void Awake()
     {
@@ -51,6 +37,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        characterData = new CharacterData();
     }
 
     private void Start()
@@ -73,8 +60,8 @@ public class GameManager : MonoBehaviour
         characterData.CurrentXP = playerProfile.GetCurrentXP();
         if (player != null)
         {
-            characterData.Inventory = new InventoryData(player.inventory);
-            characterData.Equipment = new InventoryData(player.equipment);
+            Array.Copy(player.inventory.GetSlots, characterData.Inventory, player.inventory.GetSlots.Length);
+            Array.Copy(player.equipment.GetSlots, characterData.Equipment, player.equipment.GetSlots.Length);
         }
         SaveToFile(characterData);
     }
@@ -103,11 +90,13 @@ public class GameManager : MonoBehaviour
                 customize.BodyParts[(BodyPart)i] = bodyPart.gameObject;
             }
         }
-        var playerInventory = characterObject.GetComponent<Player>().inventory;
-        var playerEquipment = characterObject.GetComponent<Player>().equipment;
-
-        characterData.Inventory.ApplyToInventory(playerInventory);
-        characterData.Equipment.ApplyToInventory(playerEquipment);
+        if (characterObject != null)
+        {
+            var playerInventory = characterObject.GetComponent<Player>().inventory;
+            var playerEquipment = characterObject.GetComponent<Player>().equipment;
+            LoadInventory(playerInventory);
+            LoadEquipment(playerEquipment);
+        }
         statsManager.LoadstatData(characterData.BaseStats);
         statsManager.LoadStatsFromData(characterData.Level.IncreaseAmount, characterData.Level.Level);
         playerProfile.LoadLevel(characterData.Level, characterData.CurrentXP);
@@ -128,5 +117,24 @@ public class GameManager : MonoBehaviour
         string json = JsonUtility.ToJson(data, true);
         string filePath = Application.dataPath + "/Resources/characterData.json";
         File.WriteAllText(filePath, json);
+    }
+    public void LoadInventory(Inventory inventory)
+    {
+        for (int i = 0; i < characterData.Inventory.Length; i++)
+        {
+            var item = characterData.Inventory[i].item;
+            var amount = characterData.Inventory[i].amount;
+            inventory.GetSlots[i].UpdateSlot(item, amount);
+        }
+    }
+
+    public void LoadEquipment(Inventory equipment)
+    {
+        for (int i = 0; i < characterData.Equipment.Length; i++)
+        {
+            var item = characterData.Equipment[i].item;
+            var amount = characterData.Equipment[i].amount;
+            equipment.GetSlots[i].UpdateSlot(item, amount);
+        }
     }
 }

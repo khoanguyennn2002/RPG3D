@@ -1,14 +1,16 @@
 using UnityEngine;
 public class IdleState : PlayerGroundState
 {
+    WeaponHoldSlot weapon;
     public IdleState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine)
     {
     }
     public override void EnterState()
     {
-        base.EnterState(); 
+        base.EnterState();
+        weapon = player.GetComponentInChildren<WeaponHoldSlot>();
         player.Anim.SetTrigger("StateOn");
-        player.Anim.SetInteger("State", (int)State.Idle);
+        player.Anim.SetInteger("State", (int)State.Move);
         //Debug.Log("Idle State");
     }
     public override void ExitState()
@@ -22,7 +24,7 @@ public class IdleState : PlayerGroundState
         {
             playerStateMachine.ChangeState(player.RunState);
         }
-        if (player.HaveWeapon() && player.inputHandler.IsSwordDrawn)
+        if (weapon.HaveWeapon() && player.inputHandler.IsSwordDrawn)
         {
             playerStateMachine.ChangeState(player.CombatState);
         }

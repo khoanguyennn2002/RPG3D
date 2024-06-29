@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -24,7 +25,10 @@ public abstract class UserInterface : MonoBehaviour
 
         AddEvent(gameObject, EventTriggerType.PointerEnter, delegate { OnEnterInterface(gameObject); });
         AddEvent(gameObject, EventTriggerType.PointerExit, delegate { OnExitInterface(gameObject); });
+
+        
     }
+
     private void OnDestroy()
     {
         for (int i = 0; i < inventory.GetSlots.Length; i++)
@@ -47,7 +51,15 @@ public abstract class UserInterface : MonoBehaviour
             _slot.slotDisplay.transform.GetChild(0).GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
             _slot.slotDisplay.GetComponentInChildren<TextMeshProUGUI>().text = "";
         }
+
+
     }
+
+    private void UpdateSlot()
+    {
+
+    }
+
     public abstract void CreateSlots();
     protected void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)
     {

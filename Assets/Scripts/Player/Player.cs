@@ -1,6 +1,6 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Windows;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     public Inventory equipment;
     public InputHandler inputHandler { get; private set; }
 
-    private void Awake()
+    private void OnEnable()
     {
         GameManager.Instance.LoadCharacter();
         InputHandler.onPickUpWeapon += PickUpItem;
@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
             equipment.GetSlots[i].OnAfterUpdate += OnAddItem;
         }
     }
+   
     private void OnDestroy()
     {
         InputHandler.onPickUpWeapon -= PickUpItem;
@@ -69,6 +70,8 @@ public class Player : MonoBehaviour
             case InterfaceType.Equipment:
                 GameManager.Instance.statsManager.RemoveBuff(_slot.item);
                 GameManager.Instance.playerProfile.UpdateUI();
+                WeaponHoldSlot weaponHoldSlot = GetComponentInChildren<WeaponHoldSlot>();
+                weaponHoldSlot.RemoveWeapon();
                 break;
             case InterfaceType.Chest:
                 break;
@@ -85,20 +88,21 @@ public class Player : MonoBehaviour
             case InterfaceType.Inventory:
                 break;
             case InterfaceType.Equipment:
-                GameManager.Instance.statsManager.ApplyItemBuffs(_slot.item);
-                GameManager.Instance.playerProfile.UpdateUI();
-                WeaponHoldSlot weaponHoldSlot = GetComponentInChildren<WeaponHoldSlot>();
-
                 switch (_slot.itemType[0])
                 {
                     case ItemType.Weapon:
-                        
+                        WeaponHoldSlot weaponHoldSlot = GetComponentInChildren<WeaponHoldSlot>();
+                        weaponHoldSlot.EquipWeapon(_slot.itemData);
                         break;
                     case ItemType.Glove:
                         break;
                     case ItemType.Helmet:
                         break;
                 }
+                GameManager.Instance.statsManager.ApplyItemBuffs(_slot.item);
+                GameManager.Instance.playerProfile.UpdateUI();
+          
+                
                 break;
             case InterfaceType.Chest:
                 break;
@@ -115,6 +119,7 @@ public class Player : MonoBehaviour
         playerProfile = GameManager.Instance.playerProfile;
         playerProfile.Init();
         Initialized();
+        
     }
     void Update()
     {
@@ -129,6 +134,7 @@ public class Player : MonoBehaviour
         //    }
         //    inputHandler.IsLevelUp = false;
         //}    
+       
     }
 
     private void FixedUpdate()
@@ -216,10 +222,6 @@ public class Player : MonoBehaviour
         Anim.SetBool("Grounded", isGround);
         return isGround;
     }
-    public bool HaveWeapon()
-    {
-        return true;
-    }
     public void CheckAttackFinish()
     {
         AttackState.FinishAttack();
@@ -228,7 +230,7 @@ public class Player : MonoBehaviour
     {
         if (item != null)
         {
-            if (inventory.AddItem(new Item(item.item), 1))
+            if (inventory.AddItem(new Item(item.itemData), 1))
             {
                 Destroy(item.gameObject);
                 item = null;
@@ -256,6 +258,11 @@ public class Player : MonoBehaviour
         {
             item = null;
         }
+    }
+
+    public void Takedame(int dame)
+    {
+        //GameManager.Instance.statsManager.Health
     }
     //private void OnDrawGizmos()
     //{

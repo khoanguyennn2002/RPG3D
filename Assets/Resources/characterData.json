@@ -18,12 +18,389 @@
         "Chr_LegRight_Male_00"
     ],
     "BaseStats": {
-        "instanceID": 31810
+        "instanceID": 31830
     },
     "Level": {
         "Level": 1,
         "XPNeedForNextLevel": 200,
         "IncreaseAmount": 0
     },
-    "CurrentXP": 0
+    "CurrentXP": 0,
+    "Inventory": [
+        {
+            "itemType": [],
+            "item": {
+                "Name": "BasicSword 2",
+                "Id": 1,
+                "buffs": [
+                    {
+                        "attribute": 0,
+                        "value": 70
+                    }
+                ]
+            },
+            "amount": 1
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "BasicSword",
+                "Id": 0,
+                "buffs": [
+                    {
+                        "attribute": 0,
+                        "value": 40
+                    }
+                ]
+            },
+            "amount": 1
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "BasicSword",
+                "Id": 0,
+                "buffs": [
+                    {
+                        "attribute": 0,
+                        "value": 40
+                    }
+                ]
+            },
+            "amount": 1
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        }
+    ],
+    "Equipment": [
+        {
+            "itemType": [
+                2
+            ],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [
+                3
+            ],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [
+                4
+            ],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [
+                5
+            ],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [
+                1
+            ],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [
+                8
+            ],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [
+                9
+            ],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        },
+        {
+            "itemType": [
+                7
+            ],
+            "item": {
+                "Name": "",
+                "Id": -1,
+                "buffs": []
+            },
+            "amount": 0
+        }
+    ]
 }

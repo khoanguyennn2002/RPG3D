@@ -4,13 +4,14 @@ using UnityEngine;
 public class WalkState : PlayerGroundState
 {
     private float animSpeed = 1f;
-
+    WeaponHoldSlot weapon;
     public WalkState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine)
     {
     }
     public override void EnterState()
     {
         base.EnterState();
+        weapon = player.GetComponentInChildren<WeaponHoldSlot>();
         player.Anim.SetInteger("State", (int)State.Move);
     }
 
@@ -24,7 +25,7 @@ public class WalkState : PlayerGroundState
     {
         base.UpdateLogic();
         player.Move(movementInput);
-        if (player.HaveWeapon() && player.inputHandler.IsSwordDrawn)
+        if (weapon.HaveWeapon() && player.inputHandler.IsSwordDrawn)
         {
             playerStateMachine.ChangeState(player.CombatState);
         }

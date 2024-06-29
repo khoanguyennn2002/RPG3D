@@ -15962,7 +15962,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.8333333
-    functionName: HandleStace
+    functionName: HandleStance
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -50,13 +50,5 @@ public class CombatState : PlayerGroundState
                 player.Anim.SetInteger("State", (int)State.Move);
             }
         }
-        else if (!isMoving && isSwordDrawn)
-        {
-            if (player.Anim.GetInteger("State") != (int)State.Idle)
-            {
-                player.Anim.SetTrigger("StateOn");
-                player.Anim.SetInteger("State", (int)State.Idle);
-            }
-        }
     }
 }

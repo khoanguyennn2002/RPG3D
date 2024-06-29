@@ -14,6 +14,8 @@ public class PlayerProfile : MonoBehaviour
     {
         characterStat = GetComponent<CharacterStatsManager>();
         levelSystem = GetComponent<LevelSystem>();
+
+
     }
     public void Init()
     {

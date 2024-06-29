@@ -18,11 +18,15 @@ public class PlayerGroundState : PlayerState
     private const float stopSpeedThreshold = 0.001f;
     private const float speedDampingTime = 0.1f;
 
+    WeaponHoldSlot weapon;
+    
+
     public PlayerGroundState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine) { }
 
     public override void EnterState()
     {
         base.EnterState();
+       weapon = player.GetComponentInChildren<WeaponHoldSlot>();
     }
 
     public override void ExitState()
@@ -42,7 +46,7 @@ public class PlayerGroundState : PlayerState
             lastGroundedTime = Time.time;
         }
 
-        if (player.HaveWeapon() && playerStateMachine.CurrentState != player.CombatState && player.inputHandler.IsSwordDrawn)
+        if (weapon.HaveWeapon() && playerStateMachine.CurrentState != player.AttackState && player.inputHandler.IsSwordDrawn )
         {
             playerStateMachine.ChangeState(player.CombatState);
         }

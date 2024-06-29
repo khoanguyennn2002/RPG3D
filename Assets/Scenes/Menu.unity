@@ -15127,233 +15127,233 @@ MonoBehaviour:
       IncreaseAmount: 0
     CurrentXP: 0
     Inventory:
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 0
+    - itemType: 
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
     Equipment:
-    - itemType: 2
+    - itemType: 02000000
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 3
+    - itemType: 03000000
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 4
+    - itemType: 04000000
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 5
+    - itemType: 05000000
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 1
+    - itemType: 01000000
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 8
+    - itemType: 08000000
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 9
+    - itemType: 09000000
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
-    - itemType: 7
+    - itemType: 07000000
       item:
         Name: 
-        Id: 0
+        Id: -1
         buffs: []
       amount: 0
 --- !u!114 &1361838805
